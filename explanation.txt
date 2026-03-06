@@ -1,0 +1,14 @@
+1- Models → your database entities (tables). (Example: TodoItem)
+2- Contracts -> DTOs:  DTO stands for Data Transfer Object. It's a simple class that defines what data the API sends and receives.
+3- AppDataContext -> DbContext (EF Core entry point). Where tables live
+4- Interfaces -> service contracts.
+5- Services -> business logic + databse calls (CRUD)
+6- Controllers -> HTTP endpoints only (thin, no business logic)
+7- Mapping -> mapping entity ↔ DTO
+8- Middleware -> error handling, logging....
+
+
+
+ DTOs give you that control. Think of it as:
+  - Model = database shape
+  - DTO = API shape
