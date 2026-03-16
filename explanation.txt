@@ -12,3 +12,18 @@
  DTOs give you that control. Think of it as:
   - Model = database shape
   - DTO = API shape
+
+   Interface and Service layer:  This is where we define what operations our API can do (Interface) and how it actually does them (Service).
+
+-> Interface (ITodoService): A contract that says "any Todo service must have these methods." It doesn't contain logic
+    just method signatures. This is useful because you can swap implementations later (e.g., switch from SQLite to
+    PostgreSQL) without changing the rest of your code.
+
+    An interface in C# is like a menu at a restaurant. It tells you what's available (method names, parameters, return
+    types), but not how the food is cooked (no implementation). Any class that "implements" this interface must provide all the listed methods.
+    Your Controller will depend on ITodoService (the interface), not TodoService (the class).
+    This means you can later swap TodoService for TestTodoService or PostgresTodoService without touching the
+    Controller. This is called Dependency Injection (DI) — a core .NET concept.
+
+-> Service (TodoService): The actual implementation  it talks to the database via AppDbContext and does the CRUD
+    operations.
