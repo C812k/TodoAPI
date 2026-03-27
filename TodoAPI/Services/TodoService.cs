@@ -77,4 +77,42 @@ public class TodoService : ITodoService
             CreatedAt = todo.CreatedAt
         };
     }
+
+    //update: finds the existing todo, updates its properties, and saves changes. Returns null if the todo doesn't exist.
+    public async Task<TodoResponse?> UpdateAsync(int id, CreateTodoRequest request)
+    {
+        var todo = await _context.Todos.FindAsync(id);
+
+        if (todo == null)
+        {
+            return null;
+        }
+
+        todo.Title = request.Title;
+        await _context.SaveChangesAsync();
+
+        return new TodoResponse
+        {
+            Id = todo.Id,
+            Title = todo.Title,
+            IsDone = todo.IsDone,
+            CreatedAt = todo.CreatedAt
+        };
+    }
+
+    //delete: finds the todo and removes it from the database. Returns false if not found, true if deleted.
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var todo = await _context.Todos.FindAsync(id);
+
+        if(todo == null)
+        {
+            return false;
+        }
+
+        _context.Todos.Remove(todo);
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
 }
